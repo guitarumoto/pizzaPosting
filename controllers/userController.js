@@ -34,3 +34,38 @@ exports.register = async (req, res) => {
         res.status(500).json({ error: "Erro ao registrar o usuário." });
     }
 };
+
+exports.updateUser = async (req, res) => {
+    const { name, email, password } = req.body;
+    const userId = req.user.id;
+
+    try {
+        const user = await User.findByPk(userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: "Usuário não encontrado." });
+        }
+
+        let hashedPassword = user.password;
+        if (password) {
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
+
+        await user.update({
+            name: name || user.name,
+            email: email || user.email,
+            password: hashedPassword
+        });
+
+        const updatedUserData = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+        };
+
+        res.json(updatedUserData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao atualizar o usuário." });
+    }
+};
