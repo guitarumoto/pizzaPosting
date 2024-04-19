@@ -12,7 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       });
-      
+
+      this.hasMany(models.Comment, {
+        foreignKey: 'postId',
+        as: 'comments',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   Post.init({
