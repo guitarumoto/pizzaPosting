@@ -44,6 +44,7 @@ Body: <br>
 
 ### PUT Atualizar usuário  
 http://localhost:3000/api/user/update<br>
+Authorization: Bearer {token} <br>
 Body: <br>
 ```json
 {
@@ -57,6 +58,7 @@ Body: <br>
 ## Posts <br>
 ### POST Criar post 
 http://localhost:3000/api/post<br>
+Authorization: Bearer {token} <br>
 Body: (Multipart formdata)<br>
 ```json
 {
@@ -101,6 +103,6 @@ Body:<br>
 ```
 <br>
 
-### GET Listar posts 
+### GET Listar interações 
 http://localhost:3000/api/post-interaction/:postId<br>
 <br>
